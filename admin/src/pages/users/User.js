@@ -1,7 +1,11 @@
 import { Button, Paper, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux'; 
+import { addUser } from '../../features/users/usersThunk';
 
 const User = () => {
+  const dispatch = useDispatch();
+
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
@@ -18,6 +22,7 @@ const User = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch(addUser(userData));
     setUserData({
       firstName: '',
       lastName: '',
