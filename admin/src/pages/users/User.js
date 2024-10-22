@@ -1,14 +1,15 @@
 import { Button, Paper, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux'; 
+import { useDispatch } from 'react-redux';
 import { addUser } from '../../features/users/usersThunk';
+import { addOrUpdateUser } from '../../features/users/usersSlice';
 
 const User = () => {
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     role: '',
     username: '',
     modules: '',
@@ -23,9 +24,10 @@ const User = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(addUser(userData));
+    dispatch(addOrUpdateUser(userData));
     setUserData({
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       role: '',
       username: '',
       modules: '',
@@ -42,8 +44,8 @@ const User = () => {
       <form onSubmit={handleSubmit}>
         <TextField
           label="First Name"
-          name="firstName"
-          value={userData.firstName}
+          name="first_name"
+          value={userData.first_name}
           onChange={handleChange}
           fullWidth
           required
@@ -51,8 +53,8 @@ const User = () => {
         />
         <TextField
           label="Last Name"
-          name="lastName"
-          value={userData.lastName}
+          name="last_name"
+          value={userData.last_name}
           onChange={handleChange}
           fullWidth
           required

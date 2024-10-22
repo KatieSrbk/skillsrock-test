@@ -18,7 +18,7 @@ const usersSlice = createSlice({
                 state.users[index] = { ...state.users[index], ...user };
             } else {
                 // Add new user
-                state.users.push(user);
+                state.users.push({...user, _id: Math.random()});
             }
         }
     },
