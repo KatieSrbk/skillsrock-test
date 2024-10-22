@@ -20,7 +20,11 @@ const usersSlice = createSlice({
                 // Add new user
                 state.users.push({...user, _id: Math.random()});
             }
-        }
+        },
+        filterUsers: (state, action) => {
+          const deletedUserId = action.payload;
+          state.users = state.users.filter((item) => item._id !== deletedUserId);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -38,5 +42,5 @@ const usersSlice = createSlice({
     }
 });
 
-export const { addOrUpdateUser } = usersSlice.actions;
+export const { addOrUpdateUser, filterUsers } = usersSlice.actions;
 export default usersSlice.reducer;

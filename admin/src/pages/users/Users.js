@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../../features/users/usersThunk';
+import { deleteUser, fetchUsers } from '../../features/users/usersThunk';
 import { useNavigate } from 'react-router-dom';
 import { Button, Paper } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { filterUsers } from '../../features/users/usersSlice';
 
 const Users = () => {
   const dispatch = useDispatch();
   const { users = [], status, error } = useSelector((state) => state.users);
+
+  const handleDelete = (userId) => {
+    dispatch(deleteUser(userId));
+    dispatch(filterUsers(userId));
+  };
 
   const columns = [
     { field: 'first_name', headerName: 'First Name', width: 130 },
@@ -17,6 +23,23 @@ const Users = () => {
     { field: 'modules', headerName: 'Modules', width: 150 },
     { field: 'instructor', headerName: 'Instructor', width: 150 },
     { field: 'students', headerName: 'students', width: 150 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <Button
+            variant="contained"
+            color="error"
+            size="small"
+            onClick={() => handleDelete(params.row._id)}
+          >
+            Удалить
+          </Button>
+        );
+      },
+    },
   ];
 
   useEffect(() => {
