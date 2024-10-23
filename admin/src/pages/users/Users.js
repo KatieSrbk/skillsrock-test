@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Paper } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { filterUsers } from '../../features/users/usersSlice';
+import { setUser } from '../../features/users/userSlice';
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ const Users = () => {
   const handleDelete = (userId) => {
     dispatch(deleteUser(userId));
     dispatch(filterUsers(userId));
+  };
+
+  const handleEdit = (userInfo) => {
+    dispatch(setUser(userInfo));
+    createUpdateUser(userInfo._id);
   };
 
   const columns = [
@@ -26,6 +32,23 @@ const Users = () => {
     {
       field: 'actions',
       headerName: 'Actions',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <Button
+            variant="contained"
+            color="info"
+            size="small"
+            onClick={() => handleEdit(params.row)}
+          >
+            Редактировать
+          </Button>
+        );
+      },
+    },
+    {
+      field: ' ',
+      headerName: ' ',
       width: 150,
       renderCell: (params) => {
         return (

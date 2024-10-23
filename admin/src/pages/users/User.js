@@ -1,11 +1,12 @@
 import { Button, Paper, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../features/users/usersThunk';
 import { addOrUpdateUser } from '../../features/users/usersSlice';
 
 const User = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const [userData, setUserData] = useState({
     first_name: '',
@@ -35,6 +36,12 @@ const User = () => {
       students: '',
     });
   };
+
+  useEffect(() => {
+    if (user) {
+      setUserData(user);
+    }
+  }, [user]);
 
   return (
     <Paper sx={{ padding: 3, maxWidth: 600, margin: '0 auto' }}>

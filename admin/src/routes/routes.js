@@ -33,6 +33,10 @@ const routes = [
                 element: <User />,
             },
             {
+                path: 'update-user/:userId',
+                element: <User />,
+            },
+            {
                 path: 'permissions',
                 element: <Permissions />,
             },
